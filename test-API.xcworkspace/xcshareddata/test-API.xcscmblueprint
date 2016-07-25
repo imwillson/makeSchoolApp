@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "188BB92697AD5863A9AC3D0564CFCB6530E16604",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "188BB92697AD5863A9AC3D0564CFCB6530E16604" : 0,
+    "3D33CEB86573A759CC6AA3C3A3C35D7599CD211C" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "585069EB-8F56-4C16-862D-C0B7B147DBE3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "188BB92697AD5863A9AC3D0564CFCB6530E16604" : "test-API\/",
+    "3D33CEB86573A759CC6AA3C3A3C35D7599CD211C" : "makeSchoolProjects\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "test-API",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "test-API.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/imwillson\/makeSchoolApp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "188BB92697AD5863A9AC3D0564CFCB6530E16604"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/imwillson\/HTTPRequestDispatchQueue.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3D33CEB86573A759CC6AA3C3A3C35D7599CD211C"
+    }
+  ]
+}
