@@ -24,6 +24,8 @@ class GoogleMapsHelper {
         request.HTTPMethod = "GET"
         request.allHTTPHeaderFields = headers
         
+        
+        
         let session = NSURLSession.sharedSession() //sharedsession, returns a singleton object, shared has constraints
         let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if (error != nil)
@@ -46,6 +48,7 @@ class GoogleMapsHelper {
                 //                self.longitude = latLongData.1
                 //                print("in the class function get coordinatesapi() :", self.latitude, self.longitude)
                 
+                print(latLongData.0, latLongData.1)
                 callback(latLongData.0, latLongData.1)
                 
             }
@@ -59,8 +62,8 @@ class GoogleMapsHelper {
         //return coordinates
     }
 
-    
-    static func getDistanceMatrix(originLat: Double, originLng: Double, destinationLat: Double, destinationLng: Double) { //you can simply this to tuples
+    // travel_mode= driving or walking
+    static func getDistanceMatrix(originLat: Double, originLng: Double, destinationLat: Double, destinationLng: Double, travel_mode travelMode: String) { //you can simply this to tuples
         //origins=41.43206,-81.38992|-33.86748,151.20699
         
         let headers =
@@ -68,9 +71,9 @@ class GoogleMapsHelper {
                 "cache-control": "no-cache"
             ]
         
-        "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(40.718293199999998),\(-74.002275900000001)|\(40.61403),\(-73.991339899999999)&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk"
+        "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=40.7184243%2C-74.004693&origins=40.717237%2C-74.0014314&transit_mode=driving&departure_time=now&traffic_model=best_guess&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk"
         
-        let url = NSURL(string: "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(originLat),\(originLng)|\(destinationLat),\(destinationLng)&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")
+        let url = NSURL(string: "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(originLat)%2C\(originLng)&destinations=\(destinationLat)%2C\(destinationLng)&mode=\(travelMode)&departure_time=now&traffic_model=best_guess&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")
         
         let request = NSMutableURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy,timeoutInterval: 10.0)
         
@@ -97,8 +100,6 @@ class GoogleMapsHelper {
                 print("i woke up like this")
                 
             }
-            
-            
             
         })
         dataTask.resume()

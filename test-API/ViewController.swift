@@ -15,13 +15,6 @@ class ViewController: UIViewController {
     
     var coordinateOrigin :(Double,Double)? = (0, 0)
     var coordinateDestination: (Double, Double)? = (0,0)
-    
-    
-    
-
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +28,11 @@ class ViewController: UIViewController {
         originPoint.convertAddressToLinkFormat()
         destinationPoint.convertAddressToLinkFormat()
         
-//        originPoint.getCoordinatesAPI()
-//        destinationPoint.getCoordinatesAPI()
-        
-        print(originPoint.latitude, originPoint.longitude)
-        print(destinationPoint.latitude, destinationPoint.longitude)
-        print("after all the dispatches")
+        print(originPoint.addressLink)
+        print(destinationPoint.addressLink)
         
         GoogleMapsHelper.getCoordinatesAPI(originPoint.addressLink) { (originCoordinates: (Double, Double)) in
+            
             
             GoogleMapsHelper.getCoordinatesAPI(destinationPoint.addressLink, callback: { (destinationCoordinates:(Double, Double)) in
                 
@@ -54,7 +44,7 @@ class ViewController: UIViewController {
                 let destinationLng = destinationCoordinates.1
                 
                 
-                GoogleMapsHelper.getDistanceMatrix(originLat, originLng: originLng, destinationLat: destinationLat, destinationLng: destinationLng)
+                GoogleMapsHelper.getDistanceMatrix(originLat, originLng: originLng, destinationLat: destinationLat, destinationLng: destinationLng, travel_mode: "walking")
                 
                 
             })

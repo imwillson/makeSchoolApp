@@ -11,6 +11,7 @@
 		9020C58F1D3E9C5700D77C08 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9020C58E1D3E9C5700D77C08 /* CoordinateConverter.swift */; };
 		90801AB21D4273350034D4AC /* CoordinateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90801AB11D4273350034D4AC /* CoordinateFunctions.swift */; };
 		90801AB81D468DF20034D4AC /* GoogleMapsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90801AB71D468DF20034D4AC /* GoogleMapsHelper.swift */; };
+		90801ABA1D47E1BA0034D4AC /* pickupAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90801AB91D47E1BA0034D4AC /* pickupAlgorithm.swift */; };
 		90AA1FB51D393C130010E8F3 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA1FB41D393C130010E8F3 /* Location.swift */; };
 		90AA1FB81D3965DF0010E8F3 /* random ass file.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AA1FB71D3965DF0010E8F3 /* random ass file.m */; };
 		90AA1FBA1D397A520010E8F3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA1FB91D397A520010E8F3 /* MapViewController.swift */; };
@@ -53,6 +54,7 @@
 		9020C58E1D3E9C5700D77C08 /* CoordinateConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
 		90801AB11D4273350034D4AC /* CoordinateFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateFunctions.swift; sourceTree = "<group>"; };
 		90801AB71D468DF20034D4AC /* GoogleMapsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapsHelper.swift; sourceTree = "<group>"; };
+		90801AB91D47E1BA0034D4AC /* pickupAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pickupAlgorithm.swift; sourceTree = "<group>"; };
 		90AA1FB41D393C130010E8F3 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		90AA1FB61D3965DE0010E8F3 /* test-API-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-API-Bridging-Header.h"; sourceTree = "<group>"; };
 		90AA1FB71D3965DF0010E8F3 /* random ass file.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "random ass file.m"; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				90AA1FB41D393C130010E8F3 /* Location.swift */,
 				90B66FC41D36D91C0086E6DA /* ViewController.swift */,
 				90801AB71D468DF20034D4AC /* GoogleMapsHelper.swift */,
+				90801AB91D47E1BA0034D4AC /* pickupAlgorithm.swift */,
 				9020C58E1D3E9C5700D77C08 /* CoordinateConverter.swift */,
 				90B66FC61D36D91C0086E6DA /* Main.storyboard */,
 				90AA1FB91D397A520010E8F3 /* MapViewController.swift */,
@@ -462,6 +465,7 @@
 				90AA1FB81D3965DF0010E8F3 /* random ass file.m in Sources */,
 				90801AB21D4273350034D4AC /* CoordinateFunctions.swift in Sources */,
 				90B66FC51D36D91C0086E6DA /* ViewController.swift in Sources */,
+				90801ABA1D47E1BA0034D4AC /* pickupAlgorithm.swift in Sources */,
 				90AA1FB51D393C130010E8F3 /* Location.swift in Sources */,
 				90B66FC31D36D91C0086E6DA /* AppDelegate.swift in Sources */,
 				90801AB81D468DF20034D4AC /* GoogleMapsHelper.swift in Sources */,
