@@ -19,39 +19,63 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let address1 = "394 Broadway New York, NY 10013"
-        let address2 = "1914 71st ST Brooklyn, NY 11204"
+        let address1 = "394 Broadway, New York, NY 10013"
+        let address2 = "412 Broadway, New York, NY 10013"
+        
+        //1914 71st St, Brooklyn, NY 11204
+        // gmaps link  1914+71st+Street,+Brooklyn,+NY+11204-
+        
+    
         
         let originPoint = AddressToCoordinatesConverter(addressString: address1)
         let destinationPoint = AddressToCoordinatesConverter(addressString: address2)
-        
         originPoint.convertAddressToLinkFormat()
         destinationPoint.convertAddressToLinkFormat()
-        
         print(originPoint.addressLink)
         print(destinationPoint.addressLink)
         
-        GoogleMapsHelper.getCoordinatesAPI(originPoint.addressLink) { (originCoordinates: (Double, Double)) in
-            
-            
-            GoogleMapsHelper.getCoordinatesAPI(destinationPoint.addressLink, callback: { (destinationCoordinates:(Double, Double)) in
-                
-                //Now we got them two diffent coodinates in heyea
-                
-                let originLat = originCoordinates.0
-                let originLng = originCoordinates.1
-                let destinationLat = destinationCoordinates.0
-                let destinationLng = destinationCoordinates.1
-                
-                
-                GoogleMapsHelper.getDistanceMatrix(originLat, originLng: originLng, destinationLat: destinationLat, destinationLng: destinationLng, travel_mode: "walking")
-                
-                
-            })
-        }
+        GoogleMapsHelper.getDistanceMatrix(originPoint.addressLink, address2: destinationPoint.addressLink, travel_mode: "driving") 
+
+        
+
+        
+        let polylineString = "oyowFtstbMrJzH~JhItEdDlB`BqCbIiEfMOb@Kv@_AfKhEt@lFdAbB\\zFz@pAZpARdB^v@Nj@CRBVBV@n@LpF|Ab@Ab@QV[J[Lo@LSNMl@Sf@Eb@B`@Jl@Tr@d@~@Z|Bl@zCl@xBTx@D|E@fAIh@KRCfEaAnGgBd]mJ`^eRdUwLhKgFpBu@lDsAr@_@zBkA`EmCtAqAf@i@v@s@fCwBtB{AfHoErAy@fB{@jAm@J@n@k@rBgAfDsBzGqD|U_MnAi@pA]d@Kp@EvAGtADvANtA^pAl@hA~@x~@jaAfBtBbJpJpWpX|QpRr@r@FX|AhBn@t@~DhEbFnFv@t@fA`AnAt@nAh@vA^vAHj@?dAKRCtAa@f@Wr@c@RMLQvA}At@kAt@wA\\u@JIFIrAcCdCcFp@mAv@gAj@e@j@a@x@WdAWz@K|@?f@Dv@LR@~LrDrBn@xCn@bANtA\\rHtBf@aAR]t@yA|L{UtOqZhGuLdG}LjOmZlHkNtOoZgMyMr@uA"
     
         
+    /* taking out code
+        //GMSPath(fromEncodedPath: <#T##String#>) FIND OUT WHERE THE M FILE IS!!! WHERE IS THE H FILE??
+        
+        let pathGeometry = GMSPath(fromEncodedPath: polylineString)
+        //print("Test, Reprint Encoded Path: ", pathGeometry)
+        
+        let totalDistance = GoogleMapsHelper.findTotalDistanceOfPath(pathGeometry!)
+        
+        //let midpointCoordinates = GoogleMapsHelper.findMiddlePointInPath(pathGeometry!, totalDistance: totalDistance)
+        
+        print("The Results I need rnTotoal Disiatnace", totalDistance)
+        //print("The Results I need again MidPoint Coordinate", midpointCoordinates)
+ */
+
+        
+        //TEST TEST TEST
+//        let oglat = CLLocationDegrees(40.7182932)
+//        let oglng = CLLocationDegrees(-74.0022759)
+//        
+//        let dstlat = CLLocationDegrees(40.7189113)
+//        let dstlng = CLLocationDegrees(-74.00176)
+//        
+//        let ogCo = CLLocationCoordinate2D(latitude: oglat, longitude: oglng)
+//        let dstCo = CLLocationCoordinate2D(latitude: dstlat, longitude: dstlng)
+//        
+//        let testDistance = GMSGeometryDistance(ogCo, dstCo)
+//        
+//        print("testDistance: ",testDistance)
+        // test test test
+    
+        print("")
     }
+        
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -61,25 +85,53 @@ class ViewController: UIViewController {
     
     
 }
-        
-        
-        
 
-        //print(originPoint.addressLink)
-        
-        //dispatch_queue_create("com.appcoda.imagesQueue", DISPATCH_QUEUE_SERIAL)
+
+/*
+ //callback hell!!!
+ GoogleMapsHelper.getCoordinatesAPI(originPoint.addressLink) { (originCoordinates: (Double, Double)) in
+ 
+ 
+    GoogleMapsHelper.getCoordinatesAPI(destinationPoint.addressLink, callback: { (destinationCoordinates:(Double, Double)) in
+ 
+ //Now we got them two diffent coodinates in heyea
+ 
+         let originLat = originCoordinates.0
+         let originLng = originCoordinates.1
+         let destinationLat = destinationCoordinates.0
+         let destinationLng = destinationCoordinates.1
+         
+         
+         GoogleMapsHelper.getDistanceMatrix(originLat, originLng: originLng, destinationLat: destinationLat, destinationLng: destinationLng, travel_mode: "driving")
+ 
+ 
+ })
+ }
+ */
+ 
+ 
+ 
  
 
 
-        
-        
+
+
+
+        //print(originPoint.addressLink)
+
+        //dispatch_queue_create("com.appcoda.imagesQueue", DISPATCH_QUEUE_SERIAL)
+
+
+
+
+
 
 
 
 
 //        print(coordinateOrigin!.0)
 //        print(coordinateOrigin!.1)
-//        
+//
 //        print(coordinateDestination!.0)
 //        print(coordinateDestination!.1)
         
