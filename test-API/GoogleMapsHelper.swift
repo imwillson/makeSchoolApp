@@ -155,7 +155,7 @@ class GoogleMapsHelper {
                 let secondsInMinute = 60
                 
                 for i in arrayOfStepsFromDestination {
-                    print(
+                    print(i)
                 }
                 
                 for i in arrayOfStepsFromDestination {
