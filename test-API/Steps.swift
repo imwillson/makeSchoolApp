@@ -9,7 +9,16 @@
 import Foundation
 import SwiftyJSON
 
-class Steps {
+
+protocol Copying { init(original: Self)}
+
+extension Copying {
+    func copy() -> Self {
+        return Self.init(original: self)
+    }
+}
+
+struct Steps {
     var distanceTillNextCoordinate: Int
     var durationTillNextCoordinate: Int
     var coordinateLat: Double
@@ -24,6 +33,14 @@ class Steps {
         self.summationTime = 0
         
     }
+    
+//    required init(original: Steps) {
+//        distanceTillNextCoordinate = original.distanceTillNextCoordinate
+//        durationTillNextCoordinate = original.durationTillNextCoordinate
+//        coordinateLat = original.coordinateLat
+//        coordinateLng = original.coordinateLng
+//        summationTime = original.summationTime
+//    }
     
     //let stepsData = json["routes"][0]["legs"][0]["steps"][0]["travel_mode"].stringValue
     

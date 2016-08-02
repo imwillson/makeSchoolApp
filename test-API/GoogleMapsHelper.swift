@@ -133,55 +133,113 @@ class GoogleMapsHelper {
 //                print(status)
 
                 var arrayOfStepsFromOrigin: [Steps] = []
-                var arrayOfStepsFromDestination: [Steps] = []
                 
                 for keys in stepsJSON {
-                    let newStep = Steps(json: keys.1) //BREAK THROUGH
+                    var newStep = Steps(json: keys.1) //BREAK THROUGH
                     
                     
                     arrayOfStepsFromOrigin.append(newStep)
                 }
                 
-                //var tempArray: [Steps] = arrayOf
+                ///var tempArray: [Steps] = arrayOf
+                ///print("first coorindate of origin array", arrayOfStepsFromOrigin[0].coordinateLat)
+                ///print("fifth coordinate of origin array", arrayOfStepsFromOrigin[4].coordinateLat)
                 
-                //print("first coorindate of origin array", arrayOfStepsFromOrigin[0].coordinateLat)
-                //print("fifth coordinate of origin array", arrayOfStepsFromOrigin[4].coordinateLat)
+                //this is where I reverse the array
+                //arrayOfStepsFromDestination = arrayOfStepsFromOrigin.map { ($0.copy()) }
                 
-                arrayOfStepsFromDestination = arrayOfStepsFromOrigin
-                arrayOfStepsFromDestination = arrayOfStepsFromDestination.reverse()
+                var arrayOfStepsFromDestination: [Steps] = []
                 
-                let averageWalkingSpeed = 4828.03
-                let secondsInHour = 3600.00
-                let secondsInMinute = 60
-                
-                for i in arrayOfStepsFromDestination {
-                    print(i)
+                for i in arrayOfStepsFromOrigin.reverse() {
+                        arrayOfStepsFromDestination.append(i)
                 }
                 
+                
+                let averageWalkingSpeed = 4828.03 // 3 miles -> meters
+                let secondsInHour = 3600.00
+                let secondsInMinute = 60
+
+/*
+                print("origin - time")
+                // prints the duration for the driving array
+                for i in arrayOfStepsFromOrigin {
+                    print(i.durationTillNextCoordinate)
+                }
+             
+      
+                print("\n destination - time \n")
+                //prints the duration for the walking array. it is reversed
                 for i in arrayOfStepsFromDestination {
                     print(i.durationTillNextCoordinate)
                 }
                 
+                print("\n reversed distance, reference for distances, for manual conversion  \n")
+                for i in arrayOfStepsFromDestination {
+                    print(i.distanceTillNextCoordinate)
+                }
+                print("\n")
+*/
+ 
+                
+                // the duration for the wakling array is now converted
+                print("duration till next coordinate CONVERTED")
+                // everytime you parse through the array, i turns into a copy.
+                
+                for step in arrayOfStepsFromDestination {
+                    
+                }
+                
+                for i in 0..<arrayOfStepsFromDestination.count {
+                    var newTimeInSeconds = Int(round(Double(arrayOfStepsFromDestination[i].distanceTillNextCoordinate) * (secondsInHour/averageWalkingSpeed)))
+                    //let newTimeInMinutes = Int(newTimeInSeconds/60)
+                    arrayOfStepsFromDestination[i].durationTillNextCoordinate = newTimeInSeconds
+                    print(arrayOfStepsFromDestination[i].durationTillNextCoordinate)
+                }
+                print("\n") //this is where the bug is
+                
+                // first summation, for walking
+                var summationTrackerDestination = 0
+                for i in 0..<arrayOfStepsFromDestination.count {
+                    arrayOfStepsFromDestination[i].summationTime = summationTrackerDestination + arrayOfStepsFromDestination[i].durationTillNextCoordinate
+                    print("Destination - test summation time for loop:", arrayOfStepsFromDestination[i].summationTime)
+                    summationTrackerDestination = arrayOfStepsFromDestination[i].summationTime
+                }
+                print("\n ----------------------------------- \n origin.durationtill next coordinate, nosummation")
+                
+
+                for i in arrayOfStepsFromOrigin {
+                    print(i.durationTillNextCoordinate)
+                }
+
+                
+                // second summation, for driving
+                var summationTrackerOrigin = 0
+                for i in 0..<arrayOfStepsFromOrigin.count {
+                    arrayOfStepsFromOrigin[i].summationTime = summationTrackerOrigin + arrayOfStepsFromOrigin[i].durationTillNextCoordinate
+                    summationTrackerOrigin = arrayOfStepsFromOrigin[i].summationTime
+                    print("Origin - test summation time for loop", arrayOfStepsFromOrigin[i].summationTime)
+                }
                 print("\n")
                 
-                // the duration is now in minutes now!!!
-                for i in arrayOfStepsFromDestination {
-                    let newTimeInSeconds = Int(Double(i.distanceTillNextCoordinate) * (secondsInHour/averageWalkingSpeed))
-                    let newTimeInMinutes = Int(newTimeInSeconds/60)
-                    i.durationTillNextCoordinate = newTimeInMinutes
-                    print(i.summationTime)
-                    
+                //var absValueArrayOfTimes: [Int] = []
+                let randomlyHighNumber: Int = 100000000
+                var tempMinCoordinate: Steps
+                var tempMinDurationDifference: Int = randomlyHighNumber
+                for (origin, dest) in zip(arrayOfStepsFromOrigin,arrayOfStepsFromDestination) {
+                    var timeDifference = abs(origin.summationTime - dest.summationTime)
+//                    absValueArrayOfTimes.append(absValue)
+                    if timeDifference < tempMinDurationDifference {
+                        tempMinDurationDifference = timeDifference
+                        tempMinCoordinate = origin                    }
                 }
                 
-               
+                //print("Final Answer: ", tempMinCoordinate.coordinateLat, tempMinCoordinate.coordinateLng)
                 
-                var summationTracker = 0
-                for i in arrayOfStepsFromDestination {
-                    i.summationTime = summationTracker + i.durationTillNextCoordinate
-                    summationTracker = i.summationTime
-                    
-                }
+//                print("absolute array of times: ",absValueArrayOfTimes)
+//                
+//                var meetingIndex = absValueArrayOfTimes.minElement()
                 
+
                 //print(arrayOfStepsFromDestination.summationTime)
                 
 //                var summationTracker = 0
@@ -189,12 +247,7 @@ class GoogleMapsHelper {
 //                    
 //                }
 //                
-                
-                
-            
-                
-                
-                
+ 
                 //print("this should be equivalent to the fifth coordinate", arrayOfStepsFromDestination[0].coordinateLat)
                 
                 
@@ -204,12 +257,7 @@ class GoogleMapsHelper {
 //                print("JSON REQUEST START")
 //                print(json)
 //                print("JSON Request END")
-                
-               
-                
-                
-            
-            
+    
         })
         dataTask.resume()
         
@@ -247,7 +295,6 @@ class GoogleMapsHelper {
                     return nextCoord
                     
                 }
-                
                 
                 index = index + 1
                 

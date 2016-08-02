@@ -21,7 +21,6 @@ class ViewController: UIViewController {
         
         let address1 = "394 Broadway, New York, NY 10013"
         let address2 = "412 Broadway, New York, NY 10013"
-        
         //1914 71st St, Brooklyn, NY 11204
         // gmaps link  1914+71st+Street,+Brooklyn,+NY+11204-
         
