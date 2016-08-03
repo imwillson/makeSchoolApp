@@ -96,13 +96,23 @@ class GoogleMapsHelper {
     
     }
     
+    static func binarySearch(origin: (Double, Double), destination: (Double, Double)) {
+        
+        //midpointOfOriginalRoute =
+        
+        var newSteps = GMSPath()
+        
+        var x = newSteps.fromEncodedPath("asdfa")
+        
+    }
+    
     // travel_mode= driving or walking
     static func getDistanceMatrix(address1: String, address2: String, travel_mode travelMode: String) { //you can simply this to tuples
         //origins=41.43206,-81.38992|-33.86748,151.20699
         
         let headers = ["cache-control": "no-cache"]
         
-        let url = NSURL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(address1)&destination=\(address2)&mode=\(travelMode)&departure_time=now&traffic_model=best_guess&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")
+        let url = NSURL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(address1)&destination=\(address2)&mode=\(travelMode)&departure_time=now&avoid=highways&traffic_model=best_guess&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")
         
         
         let request = NSMutableURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy,timeoutInterval: 10.0)
@@ -223,17 +233,43 @@ class GoogleMapsHelper {
                 
                 //var absValueArrayOfTimes: [Int] = []
                 let randomlyHighNumber: Int = 100000000
-                var tempMinCoordinate: Steps
+                var tempMinCoordinate: Steps?
                 var tempMinDurationDifference: Int = randomlyHighNumber
+                var absValueArrayOfTimes: [Int] = []
+                var summationTimeNegOrPos: Int = 0
                 for (origin, dest) in zip(arrayOfStepsFromOrigin,arrayOfStepsFromDestination) {
-                    var timeDifference = abs(origin.summationTime - dest.summationTime)
+    
+                    var timeDifference = (origin.summationTime - dest.summationTime)
 //                    absValueArrayOfTimes.append(absValue)
+                    var absTimeDifference = abs(timeDifference)
+                    absValueArrayOfTimes.append(absTimeDifference)
                     if timeDifference < tempMinDurationDifference {
                         tempMinDurationDifference = timeDifference
-                        tempMinCoordinate = origin                    }
+                        tempMinCoordinate = dest
+                        summationTimeNegOrPos = timeDifference
+                        
+                        
+                        print("does it hit?" , tempMinCoordinate, "\n")
+                        
+                    }
                 }
                 
-                //print("Final Answer: ", tempMinCoordinate.coordinateLat, tempMinCoordinate.coordinateLng)
+                if summationTimeNegOrPos > 0 {
+                    //origin = the coordinate
+                }
+                
+                else if summationTimeNegOrPos < 0 {
+                    // destination = the coordinate
+                }
+                
+                print(absValueArrayOfTimes)
+                print("\n Final Answer: ", tempMinCoordinate!.coordinateLat, tempMinCoordinate!.coordinateLng)
+                
+                
+                // pass it two coordinates in doulbes
+                
+                
+                
                 
 //                print("absolute array of times: ",absValueArrayOfTimes)
 //                
