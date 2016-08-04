@@ -18,7 +18,7 @@ class GoogleMapsHelper {
         
         let headers =
         [
-                "cache-control": "no-cache"
+                "cache-control": "no-cache adslkf"
         ]
         
         var request = NSMutableURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=\(addressLinkInURL)&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")!,
