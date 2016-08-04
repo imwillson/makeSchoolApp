@@ -10,6 +10,8 @@
 import Foundation
 import SwiftyJSON
 
+//testß
+
 class GoogleMapsHelper {
 
     static func getCoordinatesAPI(addressLinkInURL: String, callback: (Double,Double) -> Void) {
