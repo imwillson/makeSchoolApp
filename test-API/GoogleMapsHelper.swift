@@ -1,3 +1,4 @@
+
 //
 //  GoogleMapsHelper.swift
 //  test-API
@@ -96,16 +97,72 @@ class GoogleMapsHelper {
     
     }
     
+   /*
     static func binarySearch(origin: (Double, Double), destination: (Double, Double)) {
         
-        //midpointOfOriginalRoute =
+        midpointOfOriginalRoute =
         
         var newSteps = GMSPath()
         
         var x = newSteps.fromEncodedPath("asdfa")
         
     }
+ */
     
+    static func convertStepsArrayToWalkingSpeed(array: [Steps]) -> [Steps] {
+        var array = array
+        let averageWalkingSpeed = 4828.03 // 3 miles -> meters
+        let secondsInHour = 3600.00
+        let secondsInMinute = 60
+      
+        
+        for steps in 0..<array.count {
+            let newTimesInSeconds = Int(round(Double(array[steps].distanceTillNextCoordinate) * (secondsInHour/averageWalkingSpeed)))
+            array[steps].durationTillNextCoordinate = newTimesInSeconds
+        }
+        
+        return array
+    }
+    
+    static func addSummationTimeToArray(array: [Steps]) -> [Steps] {
+        var summationTracker = 0
+        var array = array
+        for steps in 0..<array.count {
+            array[steps].summationTime = summationTracker + array[steps].durationTillNextCoordinate
+            summationTracker = array[steps].summationTime
+        }
+        
+        return array
+    }
+    
+    static func subtractBothSummationTimes(originArray: [Steps], destArray: [Steps]) -> (Double,Double) {
+        let randomlyHighNumber: Int = Int.max
+        var tempMinCoordinateSteps: Steps?
+        var tempMinDurationDifference: Int = randomlyHighNumber
+        var absValueArrayOfTimes: [Int] = []
+        var summationTimeNegOrPos: Int = 0
+        
+        for (origin, dest) in zip(originArray, destArray) {
+            var timeDifference = (origin.summationTime - dest.summationTime)
+            //     absValueArrayOfTimes.append(absValue)
+            var absTimeDifference = abs(timeDifference)
+            absValueArrayOfTimes.append(absTimeDifference)
+            
+            if timeDifference < tempMinDurationDifference {
+                tempMinDurationDifference = timeDifference
+                tempMinCoordinateSteps = dest
+                summationTimeNegOrPos = timeDifference
+
+            }
+        }
+        
+        let desiredCoordinate = (tempMinCoordinateSteps!.coordinateLat, tempMinCoordinateSteps!.coordinateLng)
+        
+        return desiredCoordinate
+    }
+    
+
+
     // travel_mode= driving or walking
     static func getDistanceMatrix(address1: String, address2: String, travel_mode travelMode: String) { //you can simply this to tuples
         //origins=41.43206,-81.38992|-33.86748,151.20699
@@ -119,7 +176,6 @@ class GoogleMapsHelper {
         
         request.HTTPMethod = "GET"
         
-        
         let session = NSURLSession.sharedSession()
         let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if (error != nil)
@@ -127,7 +183,6 @@ class GoogleMapsHelper {
                 print(error)
                 //print(request) this displays the status of the request
                 //print(data)
-                
             }
             else
             {
@@ -169,135 +224,36 @@ class GoogleMapsHelper {
                 let secondsInHour = 3600.00
                 let secondsInMinute = 60
 
-/*
-                print("origin - time")
-                // prints the duration for the driving array
-                for i in arrayOfStepsFromOrigin {
-                    print(i.durationTillNextCoordinate)
-                }
-             
-      
-                print("\n destination - time \n")
-                //prints the duration for the walking array. it is reversed
-                for i in arrayOfStepsFromDestination {
-                    print(i.durationTillNextCoordinate)
-                }
-                
-                print("\n reversed distance, reference for distances, for manual conversion  \n")
-                for i in arrayOfStepsFromDestination {
-                    print(i.distanceTillNextCoordinate)
-                }
-                print("\n")
-*/
- 
                 
                 // the duration for the wakling array is now converted
                 print("duration till next coordinate CONVERTED")
                 // everytime you parse through the array, i turns into a copy.
                 
-                for step in arrayOfStepsFromDestination {
-                    
-                }
                 
-                for i in 0..<arrayOfStepsFromDestination.count {
-                    var newTimeInSeconds = Int(round(Double(arrayOfStepsFromDestination[i].distanceTillNextCoordinate) * (secondsInHour/averageWalkingSpeed)))
-                    //let newTimeInMinutes = Int(newTimeInSeconds/60)
-                    arrayOfStepsFromDestination[i].durationTillNextCoordinate = newTimeInSeconds
-                    print(arrayOfStepsFromDestination[i].durationTillNextCoordinate)
-                }
-                print("\n") //this is where the bug is
+                arrayOfStepsFromDestination = convertStepsArrayToWalkingSpeed(arrayOfStepsFromDestination)
+                arrayOfStepsFromDestination = addSummationTimeToArray(arrayOfStepsFromDestination)
+                arrayOfStepsFromOrigin = addSummationTimeToArray(arrayOfStepsFromOrigin)
                 
-                // first summation, for walking
-                var summationTrackerDestination = 0
-                for i in 0..<arrayOfStepsFromDestination.count {
-                    arrayOfStepsFromDestination[i].summationTime = summationTrackerDestination + arrayOfStepsFromDestination[i].durationTillNextCoordinate
-                    print("Destination - test summation time for loop:", arrayOfStepsFromDestination[i].summationTime)
-                    summationTrackerDestination = arrayOfStepsFromDestination[i].summationTime
-                }
-                print("\n ----------------------------------- \n origin.durationtill next coordinate, nosummation")
+                let desiredCoordinate = subtractBothSummationTimes(arrayOfStepsFromOrigin,destArray: arrayOfStepsFromDestination)
+                print(desiredCoordinate)
                 
-
-                for i in arrayOfStepsFromOrigin {
-                    print(i.durationTillNextCoordinate)
-                }
-
-                
-                // second summation, for driving
-                var summationTrackerOrigin = 0
-                for i in 0..<arrayOfStepsFromOrigin.count {
-                    arrayOfStepsFromOrigin[i].summationTime = summationTrackerOrigin + arrayOfStepsFromOrigin[i].durationTillNextCoordinate
-                    summationTrackerOrigin = arrayOfStepsFromOrigin[i].summationTime
-                    print("Origin - test summation time for loop", arrayOfStepsFromOrigin[i].summationTime)
-                }
-                print("\n")
-                
-                //var absValueArrayOfTimes: [Int] = []
-                let randomlyHighNumber: Int = 100000000
-                var tempMinCoordinate: Steps?
-                var tempMinDurationDifference: Int = randomlyHighNumber
-                var absValueArrayOfTimes: [Int] = []
-                var summationTimeNegOrPos: Int = 0
-                for (origin, dest) in zip(arrayOfStepsFromOrigin,arrayOfStepsFromDestination) {
-    
-                    var timeDifference = (origin.summationTime - dest.summationTime)
-//                    absValueArrayOfTimes.append(absValue)
-                    var absTimeDifference = abs(timeDifference)
-                    absValueArrayOfTimes.append(absTimeDifference)
-                    if timeDifference < tempMinDurationDifference {
-                        tempMinDurationDifference = timeDifference
-                        tempMinCoordinate = dest
-                        summationTimeNegOrPos = timeDifference
-                        
-                        
-                        print("does it hit?" , tempMinCoordinate, "\n")
-                        
-                    }
-                }
-                
-                if summationTimeNegOrPos > 0 {
-                    //origin = the coordinate
-                }
-                
-                else if summationTimeNegOrPos < 0 {
-                    // destination = the coordinate
-                }
-                
-                print(absValueArrayOfTimes)
-                print("\n Final Answer: ", tempMinCoordinate!.coordinateLat, tempMinCoordinate!.coordinateLng)
-                
-                
-                // pass it two coordinates in doulbes
-                
-                
-                
-                
-//                print("absolute array of times: ",absValueArrayOfTimes)
 //                
-//                var meetingIndex = absValueArrayOfTimes.minElement()
-                
-
-                //print(arrayOfStepsFromDestination.summationTime)
-                
-//                var summationTracker = 0
-//                for i in arrayOfStepsFromOrigin {
-//                    
+//                if summationTimeNegOrPos > 0 {
+//                    //origin = the coordinate
 //                }
-//                
- 
-                //print("this should be equivalent to the fifth coordinate", arrayOfStepsFromDestination[0].coordinateLat)
                 
+//                else if summationTimeNegOrPos < 0 {
+//                    // destination = the coordinate
+//                }
                 
             }
-                // first data is a parameter, second data is where the data is coming from
-                //print(json)
-//                print("JSON REQUEST START")
-//                print(json)
-//                print("JSON Request END")
+          
     
         })
         dataTask.resume()
         
     }
+
     
     static func findMiddlePointInPath(path: GMSPath ,totalDistance distance:Double) -> CLLocationCoordinate2D? {
         
@@ -345,49 +301,3 @@ class GoogleMapsHelper {
 
 
 
-/*
- // travel_mode= driving or walking
- static func getDistanceMatrix(originLat: Double, originLng: Double, destinationLat: Double, destinationLng: Double, travel_mode travelMode: String) { //you can simply this to tuples
- //origins=41.43206,-81.38992|-33.86748,151.20699
- 
- let headers =
- [
- "cache-control": "no-cache"
- ]
- 
- "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=40.7184243%2C-74.004693&origins=40.717237%2C-74.0014314&transit_mode=driving&departure_time=now&traffic_model=best_guess&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk"
- 
- let url = NSURL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(originLat)%2C\(originLng)&destination=\(destinationLat)%2C\(destinationLng)&mode=\(travelMode)&departure_time=now&traffic_model=best_guess&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")
- 
- let request = NSMutableURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy,timeoutInterval: 10.0)
- 
- request.HTTPMethod = "GET"
- 
- 
- let session = NSURLSession.sharedSession()
- let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
- if (error != nil)
- {
- print(error)
- //print(request) this displays the status of the request
- //print(data)
- 
- }
- else
- {
- //    let httpResponse = response as? NSHTTPURLResponse
- let json = JSON(data: data!) // converts NSData into SON data
- // first data is a parameter, second data is where the data is coming from
- //print(json)
- print("JSON REQUEST START")
- print(json)
- print("JSON Request END")
- 
- 
- }
- 
- })
- dataTask.resume()
- 
- }
- */
