@@ -53,20 +53,7 @@ class ViewController: UIViewController {
  */
 
         
-        //TEST TEST TEST
-//        let oglat = CLLocationDegrees(40.7182932)
-//        let oglng = CLLocationDegrees(-74.0022759)
-//        
-//        let dstlat = CLLocationDegrees(40.7189113)
-//        let dstlng = CLLocationDegrees(-74.00176)
-//        
-//        let ogCo = CLLocationCoordinate2D(latitude: oglat, longitude: oglng)
-//        let dstCo = CLLocationCoordinate2D(latitude: dstlat, longitude: dstlng)
-//        
-//        let testDistance = GMSGeometryDistance(ogCo, dstCo)
-//        
-//        print("testDistance: ",testDistance)
-        // test test test
+
     
         print("")
     }
@@ -255,3 +242,18 @@ class ViewController: UIViewController {
  
  dispatch_sync(newConcurrentQueue, {() -> Void in
 */
+
+
+/* taking out code
+ //GMSPath(fromEncodedPath: <#T##String#>) FIND OUT WHERE THE M FILE IS!!! WHERE IS THE H FILE??
+ 
+ let pathGeometry = GMSPath(fromEncodedPath: polylineString)
+ //print("Test, Reprint Encoded Path: ", pathGeometry)
+ 
+ let totalDistance = GoogleMapsHelper.findTotalDistanceOfPath(pathGeometry!)
+ 
+ //let midpointCoordinates = GoogleMapsHelper.findMiddlePointInPath(pathGeometry!, totalDistance: totalDistance)
+ 
+ print("The Results I need rnTotoal Disiatnace", totalDistance)
+ //print("The Results I need again MidPoint Coordinate", midpointCoordinates)
+ */

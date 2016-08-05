@@ -26,9 +26,7 @@ class GoogleMapsHelper {
                                           timeoutInterval: 10.0)
         request.HTTPMethod = "GET"
         request.allHTTPHeaderFields = headers
-        
-        
-        
+                
         let session = NSURLSession.sharedSession() //sharedsession, returns a singleton object, shared has constraints
         let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if (error != nil)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C82534C151F468AFB2A180F /* Pods_test_API.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8888BCD117BF65842784902D /* Pods_test_API.framework */; };
 		9020C58F1D3E9C5700D77C08 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9020C58E1D3E9C5700D77C08 /* CoordinateConverter.swift */; };
+		904B10971D54F16A00DF27BD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904B10961D54F16A00DF27BD /* UIViewExtension.swift */; };
 		90801AB21D4273350034D4AC /* CoordinateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90801AB11D4273350034D4AC /* CoordinateFunctions.swift */; };
 		90801AB81D468DF20034D4AC /* GoogleMapsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90801AB71D468DF20034D4AC /* GoogleMapsHelper.swift */; };
 		90801ABA1D47E1BA0034D4AC /* pickupAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90801AB91D47E1BA0034D4AC /* pickupAlgorithm.swift */; };
@@ -53,6 +54,7 @@
 		689A1E642F35ABE5F9FE19AF /* Pods-test-API.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test-API.debug.xcconfig"; path = "Pods/Target Support Files/Pods-test-API/Pods-test-API.debug.xcconfig"; sourceTree = "<group>"; };
 		8888BCD117BF65842784902D /* Pods_test_API.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test_API.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9020C58E1D3E9C5700D77C08 /* CoordinateConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
+		904B10961D54F16A00DF27BD /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		90801AB11D4273350034D4AC /* CoordinateFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateFunctions.swift; sourceTree = "<group>"; };
 		90801AB71D468DF20034D4AC /* GoogleMapsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapsHelper.swift; sourceTree = "<group>"; };
 		90801AB91D47E1BA0034D4AC /* pickupAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pickupAlgorithm.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		90B66FC11D36D91C0086E6DA /* test-API */ = {
 			isa = PBXGroup;
 			children = (
+				904B10961D54F16A00DF27BD /* UIViewExtension.swift */,
 				90B66FC21D36D91C0086E6DA /* AppDelegate.swift */,
 				90AA1FB41D393C130010E8F3 /* Location.swift */,
 				90B66FC41D36D91C0086E6DA /* ViewController.swift */,
@@ -465,6 +468,7 @@
 			files = (
 				90AA1FBA1D397A520010E8F3 /* MapViewController.swift in Sources */,
 				90801ABC1D4A9E480034D4AC /* Steps.swift in Sources */,
+				904B10971D54F16A00DF27BD /* UIViewExtension.swift in Sources */,
 				9020C58F1D3E9C5700D77C08 /* CoordinateConverter.swift in Sources */,
 				90AA1FB81D3965DF0010E8F3 /* random ass file.m in Sources */,
 				90801AB21D4273350034D4AC /* CoordinateFunctions.swift in Sources */,

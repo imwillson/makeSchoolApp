@@ -14,8 +14,9 @@ class MapViewController: UIViewController { // this class is a uiviewcontroller
     
 
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var addressLabel: UILabel!
     
-    let locationManager = CLLocationManager()
+    let locationManagerSession = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +39,60 @@ class MapViewController: UIViewController { // this class is a uiviewcontroller
         //locationManager.requestWhenInUseAuthorization()
 
     }
+    
+    func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
+        
+        // 1
+        let geocoder = GMSGeocoder()
+        
+        // 2
+        geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
+            if let address = response?.firstResult() {
+                
+                self.addressLabel.unlock()
+                // 3
+                let lines = address.lines as [String]!
+                self.addressLabel.text = lines.joinWithSeparator("\n")
+                
+                // 4
+                let labelHeight = self.addressLabel.intrinsicContentSize().height
+                self.mapView.padding = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0,
+                                                    bottom: labelHeight, right: 0)
+                
+                
+            }
+        }
+    }
+
 
 }
 
+extension MapViewController: CLLocationManagerDelegate {
+  
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+     
+        if status == .AuthorizedWhenInUse {
+            locationManagerSession.startUpdatingLocation()
+          
+            self.mapView.myLocationEnabled = true
+            self.mapView.settings.myLocationButton = true }
+    }
+  
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            
+            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+         
+            locationManagerSession.stopUpdatingLocation() }
+    }
+}
 
+extension MapViewController: GMSMapViewDelegate {
+    func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
+        reverseGeocodeCoordinate(position.target)
+    }
+    func mapView(mapView: GMSMapView!, willMove gesture: Bool) {
+        addressLabel.lock()
+    }
+}
 
