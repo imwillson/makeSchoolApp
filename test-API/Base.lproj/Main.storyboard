@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C6r-qy-CbY" userLabel="textFieldView">
-                                <rect key="frame" x="0.0" y="366" width="600" height="234"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6r-qy-CbY" userLabel="textFieldView">
+                                <rect key="frame" x="0.0" y="400" width="600" height="200"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lab-DA-N2C" userLabel="startLocationTextField">
                                         <rect key="frame" x="70" y="16" width="460" height="30"/>
@@ -39,11 +39,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCF-LN-qSj">
                                         <rect key="frame" x="20" y="133" width="560" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U36-rT-WzL">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U36-rT-WzL">
                                                 <rect key="frame" x="0.0" y="0.0" width="462" height="30"/>
                                                 <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="calculateCoordinate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bKu-oT-qEK"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFu-p7-Zev">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFu-p7-Zev">
                                                 <rect key="frame" x="462" y="0.0" width="98" height="30"/>
                                                 <color key="backgroundColor" red="0.708977219293351" green="1" blue="0.75870516909828456" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="Go to the Map"/>
@@ -77,8 +80,8 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w9b-Um-nln" userLabel="halfMapView" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="64" width="600" height="304"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w9b-Um-nln" userLabel="halfMapView" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="64" width="600" height="338"/>
                                 <color key="backgroundColor" red="1" green="0.22160222239999999" blue="0.1982146813" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -97,7 +100,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="OKm-R1-chr"/>
                     <connections>
+                        <outlet property="endLocationTextField" destination="zD4-tY-Dc8" id="ASE-BG-Yoi"/>
                         <outlet property="halfMapView" destination="w9b-Um-nln" id="Tek-15-bvx"/>
+                        <outlet property="startLocationTextField" destination="lab-DA-N2C" id="fDw-0u-uG4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -11,33 +11,52 @@ import Foundation
 import SwiftyJSON
 import GoogleMaps
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var halfMapView: GMSMapView!
     var coordinateOrigin :(Double,Double)? = (0, 0)
     var coordinateDestination: (Double, Double)? = (0,0)
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var startLocationTextField: UITextField? = nil
+    @IBOutlet weak var endLocationTextField: UITextField? = nil
+    
+    
+    
+    @IBAction func calculateCoordinate(sender: AnyObject) {
+//        let address1 = 
+        "1914 71st St, Brooklyn, NY 11204"
+//        let address2 = "840 70th Street, Brooklyn, NY 11228"
         
-        let address1 = "1914 71st St, Brooklyn, NY 11204"
-        let address2 = "840 70th Street, Brooklyn, NY 11228"
+        let address1 = startLocationTextField!.text
+        let address2 = endLocationTextField!.text
         //1914 71st St, Brooklyn, NY 11204
         // gmaps link  1914+71st+Street,+Brooklyn,+NY+11204-
-
-        let originPoint = AddressToCoordinatesConverter(addressString: address1)
-        let destinationPoint = AddressToCoordinatesConverter(addressString: address2)
+        
+        let originPoint = AddressToCoordinatesConverter(addressString: address1!)
+        let destinationPoint = AddressToCoordinatesConverter(addressString: address2!)
         originPoint.convertAddressToLinkFormat()
         destinationPoint.convertAddressToLinkFormat()
         print(originPoint.addressLink)
         print(destinationPoint.addressLink)
         
-        GoogleMapsHelper.getDistanceMatrix(originPoint.addressLink, address2: destinationPoint.addressLink, travel_mode: "driving") 
+        GoogleMapsHelper.getDistanceMatrix(originPoint.addressLink, address2: destinationPoint.addressLink, travel_mode: "driving")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        startLocationTextField!.delegate = self
+        endLocationTextField!.delegate = self
+        
+        
 
         let polylineString = "oyowFtstbMrJzH~JhItEdDlB`BqCbIiEfMOb@Kv@_AfKhEt@lFdAbB\\zFz@pAZpARdB^v@Nj@CRBVBV@n@LpF|Ab@Ab@QV[J[Lo@LSNMl@Sf@Eb@B`@Jl@Tr@d@~@Z|Bl@zCl@xBTx@D|E@fAIh@KRCfEaAnGgBd]mJ`^eRdUwLhKgFpBu@lDsAr@_@zBkA`EmCtAqAf@i@v@s@fCwBtB{AfHoErAy@fB{@jAm@J@n@k@rBgAfDsBzGqD|U_MnAi@pA]d@Kp@EvAGtADvANtA^pAl@hA~@x~@jaAfBtBbJpJpWpX|QpRr@r@FX|AhBn@t@~DhEbFnFv@t@fA`AnAt@nAh@vA^vAHj@?dAKRCtAa@f@Wr@c@RMLQvA}At@kAt@wA\\u@JIFIrAcCdCcFp@mAv@gAj@e@j@a@x@WdAWz@K|@?f@Dv@LR@~LrDrBn@xCn@bANtA\\rHtBf@aAR]t@yA|L{UtOqZhGuLdG}LjOmZlHkNtOoZgMyMr@uA"
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: "tap:")
+        view.addGestureRecognizer(tapGesture)
         
     /* taking out code
         //GMSPath(fromEncodedPath: <#T##String#>) FIND OUT WHERE THE M FILE IS!!! WHERE IS THE H FILE??
@@ -60,6 +79,18 @@ class ViewController: UIViewController {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
+    
+    func tap(gesture: UITapGestureRecognizer) {
+        startLocationTextField!.resignFirstResponder()
+        //endLocationTextField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
+    {
+        textField.resignFirstResponder()
+        return true;
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -92,25 +123,10 @@ class ViewController: UIViewController {
  })
  }
  */
- 
- 
- 
- 
-
-
-
-
 
         //print(originPoint.addressLink)
 
         //dispatch_queue_create("com.appcoda.imagesQueue", DISPATCH_QUEUE_SERIAL)
-
-
-
-
-
-
-
 
 
 //        print(coordinateOrigin!.0)
