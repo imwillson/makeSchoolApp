@@ -77,7 +77,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w9b-Um-nln" userLabel="halfMapView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w9b-Um-nln" userLabel="halfMapView" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="64" width="600" height="304"/>
                                 <color key="backgroundColor" red="1" green="0.22160222239999999" blue="0.1982146813" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -96,6 +96,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="OKm-R1-chr"/>
+                    <connections>
+                        <outlet property="halfMapView" destination="w9b-Um-nln" id="Tek-15-bvx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -113,7 +116,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OSQ-3x-exk" customClass="GMSMapView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OSQ-3x-exk" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -134,13 +137,14 @@
                             <constraint firstItem="OSQ-3x-exk" firstAttribute="leading" secondItem="vpU-ig-JoF" secondAttribute="leading" id="8W1-pN-PbG"/>
                             <constraint firstItem="OmI-99-n7Z" firstAttribute="top" secondItem="OSQ-3x-exk" secondAttribute="bottom" id="Efj-9U-Up4"/>
                             <constraint firstItem="OmI-99-n7Z" firstAttribute="top" secondItem="fMG-u9-Lgr" secondAttribute="bottom" id="bYN-Na-USs"/>
+                            <constraint firstItem="fMG-u9-Lgr" firstAttribute="leading" secondItem="OSQ-3x-exk" secondAttribute="trailing" constant="-600" id="h2c-cd-UyB"/>
                             <constraint firstAttribute="trailing" secondItem="fMG-u9-Lgr" secondAttribute="trailing" id="hlz-QL-t85"/>
                             <constraint firstAttribute="trailing" secondItem="OSQ-3x-exk" secondAttribute="trailing" id="iTG-ph-Tx5"/>
                             <constraint firstItem="fMG-u9-Lgr" firstAttribute="leading" secondItem="vpU-ig-JoF" secondAttribute="leading" id="mgs-Bk-ULP"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addressLabel" destination="fMG-u9-Lgr" id="zS7-53-Ig1"/>
+                        <outlet property="addressLabel" destination="fMG-u9-Lgr" id="yic-2L-Cpa"/>
                         <outlet property="mapView" destination="OSQ-3x-exk" id="V9A-mc-fT9"/>
                     </connections>
                 </viewController>

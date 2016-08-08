@@ -76,7 +76,8 @@ extension MapViewController: CLLocationManagerDelegate {
             locationManagerSession.startUpdatingLocation()
           
             self.mapView.myLocationEnabled = true
-            self.mapView.settings.myLocationButton = true }
+            self.mapView.settings.myLocationButton = true
+        }
     }
   
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -89,11 +90,17 @@ extension MapViewController: CLLocationManagerDelegate {
 }
 
 extension MapViewController: GMSMapViewDelegate {
-    func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
+    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
         reverseGeocodeCoordinate(position.target)
     }
-    func mapView(mapView: GMSMapView!, willMove gesture: Bool) {
+    func mapView(mapView: GMSMapView, willMove gesture: Bool) {
+     
         addressLabel.lock()
     }
+    
+//    func didTapMyLocationButtonForMapView(mapView: GMSMapView) -> Bool {
+//        print("oh snap grills")
+//        return true
+//    }
 }
 

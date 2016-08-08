@@ -13,6 +13,7 @@ import GoogleMaps
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var halfMapView: GMSMapView!
     var coordinateOrigin :(Double,Double)? = (0, 0)
     var coordinateDestination: (Double, Double)? = (0,0)
 
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
-            
+        
     /* taking out code
         //GMSPath(fromEncodedPath: <#T##String#>) FIND OUT WHERE THE M FILE IS!!! WHERE IS THE H FILE??
         
