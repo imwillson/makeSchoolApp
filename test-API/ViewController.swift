@@ -23,7 +23,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func calculateCoordinate(sender: AnyObject) {
-//        let address1 = 
+//        guard let x = 0 else  {
+//        //show error
+//       print("nothing")
+//        return
+//    }
+//    
+        let address1 =
         "1914 71st St, Brooklyn, NY 11204"
 //        let address2 = "840 70th Street, Brooklyn, NY 11228"
         
