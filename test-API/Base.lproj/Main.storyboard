@@ -115,38 +115,38 @@
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OSQ-3x-exk" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="addressLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMG-u9-Lgr">
-                                        <rect key="frame" x="0.0" y="551" width="600" height="21"/>
-                                        <color key="backgroundColor" red="1" green="0.10615122614384953" blue="0.45358981656844466" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="fMG-u9-Lgr" secondAttribute="bottom" constant="8" id="m24-K9-gED"/>
-                                    <constraint firstItem="fMG-u9-Lgr" firstAttribute="leading" secondItem="OSQ-3x-exk" secondAttribute="leading" id="sqj-bd-HMg"/>
-                                    <constraint firstAttribute="trailing" secondItem="fMG-u9-Lgr" secondAttribute="trailing" id="zPC-KO-Md7"/>
-                                </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="addressLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMG-u9-Lgr">
+                                <rect key="frame" x="0.0" y="580" width="600" height="20"/>
+                                <color key="backgroundColor" red="1" green="0.10615122614384953" blue="0.45358981656844466" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="qQQ-bN-I2B"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OSQ-3x-exk" firstAttribute="top" secondItem="3sR-Rb-Nxe" secondAttribute="bottom" constant="-44" id="7Dr-es-09Y"/>
                             <constraint firstItem="OSQ-3x-exk" firstAttribute="leading" secondItem="vpU-ig-JoF" secondAttribute="leading" id="8W1-pN-PbG"/>
                             <constraint firstItem="OmI-99-n7Z" firstAttribute="top" secondItem="OSQ-3x-exk" secondAttribute="bottom" id="Efj-9U-Up4"/>
+                            <constraint firstItem="OmI-99-n7Z" firstAttribute="top" secondItem="fMG-u9-Lgr" secondAttribute="bottom" id="bYN-Na-USs"/>
+                            <constraint firstAttribute="trailing" secondItem="fMG-u9-Lgr" secondAttribute="trailing" id="hlz-QL-t85"/>
                             <constraint firstAttribute="trailing" secondItem="OSQ-3x-exk" secondAttribute="trailing" id="iTG-ph-Tx5"/>
+                            <constraint firstItem="fMG-u9-Lgr" firstAttribute="leading" secondItem="vpU-ig-JoF" secondAttribute="leading" id="mgs-Bk-ULP"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addressLabel" destination="fMG-u9-Lgr" id="zS7-53-Ig1"/>
                         <outlet property="mapView" destination="OSQ-3x-exk" id="V9A-mc-fT9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K4G-1f-Tjc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1480" y="153"/>
+            <point key="canvasLocation" x="1472" y="153"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="22c-0Q-wiB">

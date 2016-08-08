@@ -22,21 +22,22 @@ class MapViewController: UIViewController { // this class is a uiviewcontroller
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from 
         
-        let camera = GMSCameraPosition.cameraWithLatitude(-33.86,
-                                                          longitude: 151.20, zoom: 6)
-        let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-        mapView.myLocationEnabled = true
-        self.view = mapView
+//        let camera = GMSCameraPosition.cameraWithLatitude(-33.86,
+//                                                          longitude: 151.20, zoom: 6)
+//        let mapViewControl = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+//        mapViewControl.myLocationEnabled = true
+//        self.view = mapViewControl
+//        
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
+//        marker.title = "Sydney"
+//        marker.snippet = "United States of America"
+//        marker.map = mapView
         
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "United States of America"
-        marker.map = mapView
         
-        
-        //locationManager.delegate = self
-        //locationManager.requestWhenInUseAuthorization()
+        locationManagerSession.delegate = self
+        locationManagerSession.requestWhenInUseAuthorization()
+        mapView.delegate = self
 
     }
     
