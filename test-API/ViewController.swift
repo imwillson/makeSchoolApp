@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import SwiftyJSON
 import GoogleMaps
+import IQKeyboardManagerSwift
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -74,8 +75,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
 //       
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: self.view.window)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: self.view.window)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: self.view.window)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: self.view.window)
         
         
       
@@ -95,6 +96,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
   
         print("")
     }
+    
+    ///// NEW OVERF LOW
+    
+    
+    
+    ///
     
     /// keyboard hiding
     func keyboardWillHide(sender: NSNotification) {
@@ -126,6 +133,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
 
         if startLocationTextField!.editing == true {
+          
             if keyboardSize.height == offset.height {
                 print("offset")
                 UIView.animateWithDuration(0.1, animations: { () -> Void in

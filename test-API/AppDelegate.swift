@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor(colorLiteralRed: (63/255), green: (63/255), blue: (63/255), alpha: 1.0)
         UINavigationBar.appearance().backgroundColor = UIColor(colorLiteralRed: (63/255), green: (63/255), blue: (63/255), alpha: 1.0)
         UINavigationBar.appearance().alpha = 1.0
+        
+        IQKeyboardManager.sharedManager().enable = true
+        
         return true
     }
 
