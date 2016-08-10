@@ -19,18 +19,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var startLocationTextField: UITextField? = nil
     @IBOutlet weak var endLocationTextField: UITextField? = nil
-    
-    
-    
+
+
     @IBAction func calculateCoordinate(sender: AnyObject) {
 //        guard let x = 0 else  {
 //        //show error
 //       print("nothing")
 //        return
+        
+        let path = GMSMutablePath()
+        path.addLatitude(3.1970044, longitude:101.7389365)
+        path.addLatitude(3.2058354, longitude:101.729536)
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeWidth = 5.0
+        polyline.geodesic = true
+        polyline.map = halfMapView
 //    }
 //    
-        let address1 =
-        "1914 71st St, Brooklyn, NY 11204"
+        //let address1 = "1914 71st St, Brooklyn, NY 11204"
 //        let address2 = "840 70th Street, Brooklyn, NY 11228"
         
         let address1 = startLocationTextField!.text
@@ -64,6 +70,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: "tap:")
         view.addGestureRecognizer(tapGesture)
         
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
+//       
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: self.view.window)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: self.view.window)
+        
+        
+      
     /* taking out code
         //GMSPath(fromEncodedPath: <#T##String#>) FIND OUT WHERE THE M FILE IS!!! WHERE IS THE H FILE??
         
@@ -81,6 +96,85 @@ class ViewController: UIViewController, UITextFieldDelegate {
         print("")
     }
     
+    /// keyboard hiding
+    func keyboardWillHide(sender: NSNotification) {
+        let userInfo: [NSObject : AnyObject] = sender.userInfo! // userINfo associated with the NSNotification
+        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size //CG size contains (width, height) values
+        
+                                                                        // "UIKeyboardFrameBeingUserINfoKEy" contains CGRectfile
+        
+
+        if startLocationTextField!.editing == true {
+            
+            print("keyboard willhide, self.view.frame.origin.y BEFORE : ", self.view.frame.origin.y)
+            
+            self.view.frame.origin.y += keyboardSize.height
+            print("keyboard willhide, self.view.frame.origin.y AFTER : \n", self.view.frame.origin.y)
+         
+        }
+        
+//        if endLocationTextField!.editing == true {
+//            self.view.frame.origin.y += keyboardSize.height
+//        }
+    }
+    
+    func keyboardWillShow(sender: NSNotification) {
+        let userInfo: [NSObject : AnyObject] = sender.userInfo!
+        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
+        let offset: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size
+        
+        
+
+        if startLocationTextField!.editing == true {
+            if keyboardSize.height == offset.height {
+                print("offset")
+                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                    print("keyboardwillshow, if, selfviewframeoriginY: BEFORE ", self.view.frame.origin.y)
+                    self.view.frame.origin.y -= keyboardSize.height
+                    print("keyboardwillshow, if, selfviewframeoriginY: AFTER \n", self.view.frame.origin.y)
+                    
+                
+                })
+            } else {
+                print("not")
+                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                    print("keyboardwillshow, else, selfviewframeoriginY: BEFORE ", self.view.frame.origin.y)
+                    self.view.frame.origin.y += keyboardSize.height - offset.height
+                    print("keyboardwillshow, else, selfviewframeoriginY: AFTER \n", self.view.frame.origin.y)
+                    
+                })
+            }
+        }
+        
+//        if endLocationTextField!.editing == true {
+//            if keyboardSize.height == offset.height {
+//                print("offset")
+//                UIView.animateWithDuration(0.1, animations: { () -> Void in
+//                    self.view.frame.origin.y -= keyboardSize.height
+//                })
+//            } else {
+//                print("not")
+//                UIView.animateWithDuration(0.1, animations: { () -> Void in
+//                    self.view.frame.origin.y += keyboardSize.height - offset.height
+//                })
+//            }
+//        }
+    }
+    
+
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: self.view.window)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: self.view.window)
+    }
+    ///
+    
+    
+    
+    
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
@@ -91,6 +185,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         //endLocationTextField.resignFirstResponder()
     }
     
+
     func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
     {
         textField.resignFirstResponder()

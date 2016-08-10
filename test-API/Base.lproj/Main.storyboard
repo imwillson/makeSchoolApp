@@ -14,15 +14,15 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w9b-Um-nln" userLabel="halfMapView" customClass="GMSMapView">
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w9b-Um-nln" userLabel="halfMapView" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="64" width="600" height="338"/>
                                 <color key="backgroundColor" red="1" green="0.22160222239999999" blue="0.1982146813" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C6r-qy-CbY" userLabel="textFieldView">
-                                <rect key="frame" x="-7" y="400" width="600" height="200"/>
+                                <rect key="frame" x="-7" y="336" width="600" height="200"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lab-DA-N2C" userLabel="startLocationTextField">
                                         <rect key="frame" x="70" y="31" width="460" height="30"/>
@@ -40,20 +40,26 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCF-LN-qSj">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="50" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UCF-LN-qSj">
                                         <rect key="frame" x="20" y="133" width="560" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U36-rT-WzL">
-                                                <rect key="frame" x="0.0" y="0.0" width="462" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
                                                 <color key="backgroundColor" red="0.56470588235294117" green="0.95294117647058818" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200" id="ODl-7L-g3n"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <connections>
                                                     <action selector="calculateCoordinate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bKu-oT-qEK"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFu-p7-Zev">
-                                                <rect key="frame" x="462" y="0.0" width="98" height="30"/>
+                                                <rect key="frame" x="250" y="0.0" width="310" height="30"/>
                                                 <color key="backgroundColor" red="0.56470588235294117" green="0.95294117647058818" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200" id="gHz-gR-BYF"/>
+                                                </constraints>
                                                 <state key="normal" title="Go to the Map"/>
                                                 <connections>
                                                     <segue destination="hQE-ej-VZ5" kind="show" id="kVA-tc-o3d"/>
@@ -86,7 +92,7 @@
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="w9b-Um-nln" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5jX-tz-BkN"/>
                             <constraint firstItem="C6r-qy-CbY" firstAttribute="top" secondItem="w9b-Um-nln" secondAttribute="bottom" constant="-2" id="IjL-gB-hoc"/>
@@ -119,15 +125,15 @@
                         <viewControllerLayoutGuide type="bottom" id="OmI-99-n7Z"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vpU-ig-JoF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OSQ-3x-exk" customClass="GMSMapView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OSQ-3x-exk" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="addressLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMG-u9-Lgr">
-                                <rect key="frame" x="0.0" y="580" width="600" height="20"/>
+                                <rect key="frame" x="0.0" y="516" width="600" height="20"/>
                                 <color key="backgroundColor" red="1" green="0.10615122614384953" blue="0.45358981656844466" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="qQQ-bN-I2B"/>
@@ -163,7 +169,7 @@
             <objects>
                 <navigationController title="Treasy" automaticallyAdjustsScrollViewInsets="NO" id="gyF-KD-nt0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dR7-fS-Trc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="dR7-fS-Trc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
@@ -178,4 +184,5 @@
             <point key="canvasLocation" x="29" y="153"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
 </document>
