@@ -18,19 +18,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var coordinateOrigin :(Double,Double)? = (0, 0)
     var coordinateDestination: (Double, Double)? = (0,0)
 
+    @IBOutlet weak var algorithmButton: UIButton!
     @IBOutlet weak var startLocationTextField: UITextField? = nil
     @IBOutlet weak var endLocationTextField: UITextField? = nil
 
 
     @IBAction func calculateCoordinate(sender: AnyObject) {
-//        guard let x = 0 else  {
-//        //show error
-//       print("nothing")
-//        return
+
         
-//        let path = GMSMutablePath()
-//        path.addLatitude(3.1970044, longitude:101.7389365)
-//        path.addLatitude(3.2058354, longitude:101.729536)
+
 //        let polyline = GMSPolyline(path: path)
 //        polyline.strokeWidth = 5.0
 //        polyline.geodesic = true
@@ -52,44 +48,70 @@ class ViewController: UIViewController, UITextFieldDelegate {
         print(originPoint.addressLink)
         print(destinationPoint.addressLink)
         
-        
- 
-//        dispatch_async(dispatch_get_global_queue(),  {
-//            for location in locationsArrayFromSomeWhere {
-//                
-//                dispatch_async(dispatch_get_main_queue()) {
-//                    let placeMarker = PlaceMarker(coordinate: location.coordinate)
-//                    .
-//                    .//Simple Setup
-//                        .
-//                            placeMarker.map = self.mapView
-//                }
-//            }
-//        })
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
+            //background processing goes here
+            
+            GoogleMapsHelper.getDistanceMatrix(originPoint.addressLink, address2: destinationPoint.addressLink, travel_mode: "driving") { callback in
 
-        
-        GoogleMapsHelper.getDistanceMatrix(originPoint.addressLink, address2: destinationPoint.addressLink, travel_mode: "driving") { (path: GMSPath) in
-            
-            let polyline: GMSPolyline = GMSPolyline(path: path)
-
-            
-       
-            polyline.strokeColor = UIColor.redColor()
-            polyline.strokeWidth = 5.0
-            polyline.map = self.halfMapView
-       
-            
-            
-            var bounds = GMSCoordinateBounds()
-            
-            for index in 1...path.count() {
-                bounds = bounds.includingCoordinate(path.coordinateAtIndex(index))
-            }
-            
-            self.halfMapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds))
-
-        
+            dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                let polyline: GMSPolyline = GMSPolyline(path: callback.0)
+                polyline.strokeColor = UIColor.redColor()
+                polyline.strokeWidth = 5.0
+                polyline.map = self.halfMapView
+                
+                print(callback.1.0, callback.1.1)
+                let position = CLLocationCoordinate2D(latitude: callback.1.0, longitude: callback.1.1)
+                let marker = GMSMarker(position: position)
+                marker.title = "Hello World"
+                marker.map = self.halfMapView
+                
+                
+                
+                var bounds = GMSCoordinateBounds()
+                
+                for index in 1...callback.0.count() {
+                    bounds = bounds.includingCoordinate(callback.0.coordinateAtIndex(index))
+                }
+                
+                self.halfMapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds))
+                
+                
+                
+            })
         }
+    })
+        
+
+
+    
+
+//        GoogleMapsHelper.getDistanceMatrix(originPoint.addressLink, address2: destinationPoint.addressLink, travel_mode: "driving") { callback in
+//            
+//            // : ( GMSPath, (Double,Double))
+//            let polyline: GMSPolyline = GMSPolyline(path: callback.0)
+//            
+////            let position = CLLocationCoordinate2DMake(10, 10)
+////            let marker = GMSMarker(position: position)
+////            marker.title = "Hello World"
+////            marker.map = mapView
+//            
+//       
+//            polyline.strokeColor = UIColor.redColor()
+//            polyline.strokeWidth = 5.0
+//            polyline.map = self.halfMapView
+//       
+//            
+//            
+//            var bounds = GMSCoordinateBounds()
+//            
+//            for index in 1...callback.0.count() {
+//                bounds = bounds.includingCoordinate(callback.0.coordinateAtIndex(index))
+//            }
+//
+//            self.halfMapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds))
+//
+//        
+//        }
     }
     
     override func viewDidLoad() {
@@ -98,6 +120,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
         startLocationTextField!.delegate = self
         endLocationTextField!.delegate = self
         //halfMapView.delegate = self
+        
+        startLocationTextField!.delegate = self
+        endLocationTextField!.delegate = self
+        
+        if startLocationTextField!.text!.isEmpty ||  (endLocationTextField!.text!.isEmpty){
+            algorithmButton.userInteractionEnabled = false
+            print("user interaction enabled = false")
+        }
         
 
         let polylineString = "oyowFtstbMrJzH~JhItEdDlB`BqCbIiEfMOb@Kv@_AfKhEt@lFdAbB\\zFz@pAZpARdB^v@Nj@CRBVBV@n@LpF|Ab@Ab@QV[J[Lo@LSNMl@Sf@Eb@B`@Jl@Tr@d@~@Z|Bl@zCl@xBTx@D|E@fAIh@KRCfEaAnGgBd]mJ`^eRdUwLhKgFpBu@lDsAr@_@zBkA`EmCtAqAf@i@v@s@fCwBtB{AfHoErAy@fB{@jAm@J@n@k@rBgAfDsBzGqD|U_MnAi@pA]d@Kp@EvAGtADvANtA^pAl@hA~@x~@jaAfBtBbJpJpWpX|QpRr@r@FX|AhBn@t@~DhEbFnFv@t@fA`AnAt@nAh@vA^vAHj@?dAKRCtAa@f@Wr@c@RMLQvA}At@kAt@wA\\u@JIFIrAcCdCcFp@mAv@gAj@e@j@a@x@WdAWz@K|@?f@Dv@LR@~LrDrBn@xCn@bANtA\\rHtBf@aAR]t@yA|L{UtOqZhGuLdG}LjOmZlHkNtOoZgMyMr@uA"
@@ -136,9 +166,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     ///// NEW OVERF LOW
     
+    ///  / / // / / /  /
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        let text = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        
+        if !text.isEmpty{
+            algorithmButton.userInteractionEnabled = true
+        } else {
+            algorithmButton.userInteractionEnabled = false
+        } 
+        return true
+    }
     
-    ///
+    /// ///////
     
     /// keyboard hiding
     func keyboardWillHide(sender: NSNotification) {

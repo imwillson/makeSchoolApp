@@ -165,7 +165,7 @@ class GoogleMapsHelper {
 
 
     // travel_mode= driving or walking
-    static func getDistanceMatrix(address1: String, address2: String, travel_mode travelMode: String, callback: (GMSPath) -> Void) { //you can simply this to tuples
+    static func getDistanceMatrix(address1: String, address2: String, travel_mode travelMode: String, callback: (GMSPath, (Double, Double)) -> Void) { //you can simply this to tuples
 
         //origins=41.43206,-81.38992|-33.86748,151.20699
         
@@ -174,6 +174,7 @@ class GoogleMapsHelper {
         let url = NSURL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(address1)&destination=\(address2)&mode=\(travelMode)&departure_time=now&avoid=highways&traffic_model=best_guess&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")
         
        
+        
         let request = NSMutableURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy,timeoutInterval: 10.0)
         
         request.HTTPMethod = "GET"
@@ -196,7 +197,7 @@ class GoogleMapsHelper {
                 print("encodedPolyline: ", encodedPolyline)
                 let polylineHalfMap = GMSPath(fromEncodedPath: encodedPolyline)
                 
-                callback(polylineHalfMap!)
+                //callback(polylineHalfMap!)
                 
                 
                 
@@ -269,6 +270,9 @@ class GoogleMapsHelper {
                 
                 let desiredCoordinate = subtractBothSummationTimes(arrayOfStepsFromOrigin,destArray: arrayOfStepsFromDestination)
                 print(desiredCoordinate)
+                
+                callback((polylineHalfMap!), desiredCoordinate)
+
                 
 //                
 //                if summationTimeNegOrPos > 0 {
