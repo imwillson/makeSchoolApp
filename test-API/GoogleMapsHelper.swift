@@ -165,14 +165,15 @@ class GoogleMapsHelper {
 
 
     // travel_mode= driving or walking
-    static func getDistanceMatrix(address1: String, address2: String, travel_mode travelMode: String) { //you can simply this to tuples
+    static func getDistanceMatrix(address1: String, address2: String, travel_mode travelMode: String, callback: (GMSPath) -> Void) { //you can simply this to tuples
+
         //origins=41.43206,-81.38992|-33.86748,151.20699
         
         let headers = ["cache-control": "no-cache"]
         
         let url = NSURL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(address1)&destination=\(address2)&mode=\(travelMode)&departure_time=now&avoid=highways&traffic_model=best_guess&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")
         
-        
+       
         let request = NSMutableURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy,timeoutInterval: 10.0)
         
         request.HTTPMethod = "GET"
@@ -190,6 +191,37 @@ class GoogleMapsHelper {
                 //    let httpResponse = response as? NSHTTPURLResponse
                 
                 let json = JSON(data: data!) // converts NSData into SON data
+                
+                let encodedPolyline = json["routes"][0]["overview_polyline"]["points"].stringValue
+                print("encodedPolyline: ", encodedPolyline)
+                let polylineHalfMap = GMSPath(fromEncodedPath: encodedPolyline)
+                
+                callback(polylineHalfMap!)
+                
+                
+                
+                
+                /*
+                 
+                
+                let path: GMSPath = GMSPath(fromEncodedPath: route)!
+                routePolyline = GMSPolyline(path: path)
+                routePolyline.map = mapView
+                
+                
+                var bounds = GMSCoordinateBounds()
+                
+                for index in 1...path.count() {
+                    bounds = bounds.includingCoordinate(path.coordinateAtIndex(index))
+                }
+                
+                mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds))
+                
+                */
+                
+                
+                //callback(json["routes"][0]["overview_polyline"].stringValue)
+                
                 let stepsJSON = json["routes"][0]["legs"][0]["steps"]
 
                 //print(json)
@@ -251,6 +283,7 @@ class GoogleMapsHelper {
           
     
         })
+        
         dataTask.resume()
         
     }

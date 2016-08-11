@@ -28,13 +28,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //       print("nothing")
 //        return
         
-        let path = GMSMutablePath()
-        path.addLatitude(3.1970044, longitude:101.7389365)
-        path.addLatitude(3.2058354, longitude:101.729536)
-        let polyline = GMSPolyline(path: path)
-        polyline.strokeWidth = 5.0
-        polyline.geodesic = true
-        polyline.map = halfMapView
+//        let path = GMSMutablePath()
+//        path.addLatitude(3.1970044, longitude:101.7389365)
+//        path.addLatitude(3.2058354, longitude:101.729536)
+//        let polyline = GMSPolyline(path: path)
+//        polyline.strokeWidth = 5.0
+//        polyline.geodesic = true
+//        polyline.map = halfMapView
 //    }
 //    
         //let address1 = "1914 71st St, Brooklyn, NY 11204"
@@ -52,7 +52,43 @@ class ViewController: UIViewController, UITextFieldDelegate {
         print(originPoint.addressLink)
         print(destinationPoint.addressLink)
         
-        GoogleMapsHelper.getDistanceMatrix(originPoint.addressLink, address2: destinationPoint.addressLink, travel_mode: "driving")
+        
+ 
+//        dispatch_async(dispatch_get_global_queue(),  {
+//            for location in locationsArrayFromSomeWhere {
+//                
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    let placeMarker = PlaceMarker(coordinate: location.coordinate)
+//                    .
+//                    .//Simple Setup
+//                        .
+//                            placeMarker.map = self.mapView
+//                }
+//            }
+//        })
+
+    
+        GoogleMapsHelper.getDistanceMatrix(originPoint.addressLink, address2: destinationPoint.addressLink, travel_mode: "driving") { (path: GMSPath) in
+            
+            let polyline: GMSPolyline = GMSPolyline(path: path)
+            
+       
+            polyline.strokeColor = UIColor.redColor()
+            polyline.strokeWidth = 5.0
+            polyline.map = self.halfMapView
+       
+            
+            
+            var bounds = GMSCoordinateBounds()
+            
+            for index in 1...path.count() {
+                bounds = bounds.includingCoordinate(path.coordinateAtIndex(index))
+            }
+            
+            self.halfMapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds))
+
+        
+        }
     }
     
     override func viewDidLoad() {
@@ -60,7 +96,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         startLocationTextField!.delegate = self
         endLocationTextField!.delegate = self
-        
+        //halfMapView.delegate = self
         
 
         let polylineString = "oyowFtstbMrJzH~JhItEdDlB`BqCbIiEfMOb@Kv@_AfKhEt@lFdAbB\\zFz@pAZpARdB^v@Nj@CRBVBV@n@LpF|Ab@Ab@QV[J[Lo@LSNMl@Sf@Eb@B`@Jl@Tr@d@~@Z|Bl@zCl@xBTx@D|E@fAIh@KRCfEaAnGgBd]mJ`^eRdUwLhKgFpBu@lDsAr@_@zBkA`EmCtAqAf@i@v@s@fCwBtB{AfHoErAy@fB{@jAm@J@n@k@rBgAfDsBzGqD|U_MnAi@pA]d@Kp@EvAGtADvANtA^pAl@hA~@x~@jaAfBtBbJpJpWpX|QpRr@r@FX|AhBn@t@~DhEbFnFv@t@fA`AnAt@nAh@vA^vAHj@?dAKRCtAa@f@Wr@c@RMLQvA}At@kAt@wA\\u@JIFIrAcCdCcFp@mAv@gAj@e@j@a@x@WdAWz@K|@?f@Dv@LR@~LrDrBn@xCn@bANtA\\rHtBf@aAR]t@yA|L{UtOqZhGuLdG}LjOmZlHkNtOoZgMyMr@uA"
@@ -209,6 +245,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     
 }
+
+//extension MapViewController: GMSMapViewDelegate {
+//
+//}
+
+
+    
+    //    func didTapMyLocationButtonForMapView(mapView: GMSMapView) -> Bool {
+    //        print("oh snap grills")
+    //        return true
+    //    }
+
 
 
 /*
