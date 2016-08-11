@@ -17,6 +17,7 @@
 		90AA1FB51D393C130010E8F3 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA1FB41D393C130010E8F3 /* Location.swift */; };
 		90AA1FB81D3965DF0010E8F3 /* random ass file.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AA1FB71D3965DF0010E8F3 /* random ass file.m */; };
 		90AA1FBA1D397A520010E8F3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA1FB91D397A520010E8F3 /* MapViewController.swift */; };
+		90B5A9BB1D5C1DDB00F9169C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B5A9BA1D5C1DDB00F9169C /* SwiftyJSON.framework */; };
 		90B66FC31D36D91C0086E6DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B66FC21D36D91C0086E6DA /* AppDelegate.swift */; };
 		90B66FC51D36D91C0086E6DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B66FC41D36D91C0086E6DA /* ViewController.swift */; };
 		90B66FC81D36D91C0086E6DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90B66FC61D36D91C0086E6DA /* Main.storyboard */; };
@@ -63,6 +64,7 @@
 		90AA1FB61D3965DE0010E8F3 /* test-API-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-API-Bridging-Header.h"; sourceTree = "<group>"; };
 		90AA1FB71D3965DF0010E8F3 /* random ass file.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "random ass file.m"; sourceTree = "<group>"; };
 		90AA1FB91D397A520010E8F3 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		90B5A9BA1D5C1DDB00F9169C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/test-API-cztqgonxaflogqgqpccthowlxeup/Build/Products/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		90B66FBF1D36D91C0086E6DA /* test-API.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "test-API.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B66FC21D36D91C0086E6DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90B66FC41D36D91C0086E6DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90B5A9BB1D5C1DDB00F9169C /* SwiftyJSON.framework in Frameworks */,
 				8C82534C151F468AFB2A180F /* Pods_test_API.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,6 +186,7 @@
 		970D37CA5F141176BB712A78 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				90B5A9BA1D5C1DDB00F9169C /* SwiftyJSON.framework */,
 				8888BCD117BF65842784902D /* Pods_test_API.framework */,
 				9DA52C6DFDBA06F345CC43DA /* Pods_test_APITests.framework */,
 				FA48F6494AD575D8FA2EBA7E /* Pods_test_APIUITests.framework */,

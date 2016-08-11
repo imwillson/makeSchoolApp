@@ -67,10 +67,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //            }
 //        })
 
-    
+        
         GoogleMapsHelper.getDistanceMatrix(originPoint.addressLink, address2: destinationPoint.addressLink, travel_mode: "driving") { (path: GMSPath) in
             
             let polyline: GMSPolyline = GMSPolyline(path: path)
+
             
        
             polyline.strokeColor = UIColor.redColor()
