@@ -140,22 +140,30 @@ class GoogleMapsHelper {
         let randomlyHighNumber: Int = Int.max
         var tempMinCoordinateSteps: Steps?
         var tempMinDurationDifference: Int = randomlyHighNumber
+        var valueArrayOfTimes: [Int] = [] //test
         var absValueArrayOfTimes: [Int] = []
         var summationTimeNegOrPos: Int = 0
         
         for (origin, dest) in zip(originArray, destArray) {
             var timeDifference = (origin.summationTime - dest.summationTime)
             //     absValueArrayOfTimes.append(absValue)
+            
+            valueArrayOfTimes.append(timeDifference)
+            
             var absTimeDifference = abs(timeDifference)
             absValueArrayOfTimes.append(absTimeDifference)
             
-            if timeDifference < tempMinDurationDifference {
+            if absTimeDifference < tempMinDurationDifference {
                 tempMinDurationDifference = timeDifference
                 tempMinCoordinateSteps = dest
-                summationTimeNegOrPos = timeDifference
+                //summationTimeNegOrPos = timeDifference
 
             }
         }
+        
+        
+        print(valueArrayOfTimes)
+        print(absValueArrayOfTimes)
         
         let desiredCoordinate = (tempMinCoordinateSteps!.coordinateLat, tempMinCoordinateSteps!.coordinateLng)
         
@@ -249,7 +257,7 @@ class GoogleMapsHelper {
                 
                 var arrayOfStepsFromDestination: [Steps] = []
                 
-                for i in arrayOfStepsFromOrigin.reverse() {
+                for i in arrayOfStepsFromOrigin {
                         arrayOfStepsFromDestination.append(i)
                 }
                 
@@ -265,9 +273,10 @@ class GoogleMapsHelper {
                 
                 
                 arrayOfStepsFromDestination = convertStepsArrayToWalkingSpeed(arrayOfStepsFromDestination)
-                arrayOfStepsFromDestination = addSummationTimeToArray(arrayOfStepsFromDestination)
+                arrayOfStepsFromDestination = addSummationTimeToArray(arrayOfStepsFromDestination.reverse())
+                print("addSumattionTimeToarray: dest ", arrayOfStepsFromDestination)
                 arrayOfStepsFromOrigin = addSummationTimeToArray(arrayOfStepsFromOrigin)
-                
+                print("addSumattionTimetoArry: og", arrayOfStepsFromOrigin)
                 let desiredCoordinate = subtractBothSummationTimes(arrayOfStepsFromOrigin,destArray: arrayOfStepsFromDestination)
                 print(desiredCoordinate)
                 
