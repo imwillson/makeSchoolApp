@@ -117,6 +117,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // example 40.7182932,-74.0044699
+        // 412 -  40.7189113,-74.003954
+ 
+        
+        GoogleMapsHelper.getEncodedPolylineTwoPoints((40.7182932, -74.0044699), endCoordinate: (40.7189113, -74.003954)) { encodedPolyline in
+                print(encodedPolyline)
+            
+            }
+        
         startLocationTextField!.delegate = self
         endLocationTextField!.delegate = self
         //halfMapView.delegate = self

@@ -365,7 +365,40 @@ class GoogleMapsHelper {
         return nil //Return nil if we cannot find middle point in path for some reason
     }
     
+    static func getEncodedPolylineTwoPoints(startCoordinate: (Double, Double), endCoordinate: (Double, Double), encodedPolyline: String -> Void) {
+        
+         let headers = ["cache-control": "no-cache"]
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(startCoordinate.0)%2C\(startCoordinate.1)&destination=\(endCoordinate.0)%2C\(endCoordinate.1)&mode=walking&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")!,
+                                          cachePolicy: .UseProtocolCachePolicy,
+                                          timeoutInterval: 10.0)
+        
+//        let url = NSURL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(address1)&destination=\(address2)&mode=\(travelMode)&departure_time=now&avoid=highways&traffic_model=best_guess&key=AIzaSyC-xkDe7GaH-4Q9byIcAw-HEgkr_AEOFUk")
+        
+        request.HTTPMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        let session = NSURLSession.sharedSession()
+        let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                print(error)
+                
+            } else {
+                let httpResponse = response as? NSHTTPURLResponse
+                
+                let json = JSON(data: data!)
+                
+                encodedPolyline(json["routes"][0]["overview_polyline"]["points"].stringValue)
+                
+                
+                
 
+                //print(httpResponse)
+            }
+        })
+        
+        dataTask.resume()
+    }
 
 
     static func directionsBinarySearch(origin: (Double,Double), destination: (Double,Double)) {
