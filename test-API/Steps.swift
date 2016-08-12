@@ -24,6 +24,7 @@ struct Steps {
     var coordinateLat: Double
     var coordinateLng: Double
     var summationTime: Int
+    var edgeCaseCoordinateEnd: (Double,Double)
     
     init(json: JSON) {
         self.distanceTillNextCoordinate = json["distance"]["value"].intValue
@@ -31,6 +32,7 @@ struct Steps {
         self.coordinateLat = json["start_location"]["lat"].doubleValue
         self.coordinateLng = json["start_location"]["lng"].doubleValue
         self.summationTime = 0
+        self.edgeCaseCoordinateEnd = (json["end_location"]["lat"].doubleValue, json["end_location"]["lng"].doubleValue)
         
     }
     

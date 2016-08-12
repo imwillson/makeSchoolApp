@@ -136,38 +136,81 @@ class GoogleMapsHelper {
         return array
     }
     
-    static func subtractBothSummationTimes(originArray: [Steps], destArray: [Steps]) -> (Double,Double) {
+    //return a couple of things
+    
+    static func subtractBothSummationTimes(originArray: [Steps], destArray: [Steps]) -> ((Double,Double),(Double,Double)) {
         let randomlyHighNumber: Int = Int.max
         var tempMinCoordinateSteps: Steps?
         var tempMinDurationDifference: Int = randomlyHighNumber
+        
         var valueArrayOfTimes: [Int] = [] //test
         var absValueArrayOfTimes: [Int] = []
-        var summationTimeNegOrPos: Int = 0
         
-        for (origin, dest) in zip(originArray, destArray) {
+        var summationTimeNegOrPos: Int = 0
+        var tempCoordinateForBinarySearch: (Double,Double)?
+                
+        var counterIndex: Int = 0
+        for (origin, dest) in zip(originArray, destArray)
+        {
             var timeDifference = (origin.summationTime - dest.summationTime)
             //     absValueArrayOfTimes.append(absValue)
-            
+            print(timeDifference)
             valueArrayOfTimes.append(timeDifference)
             
             var absTimeDifference = abs(timeDifference)
             absValueArrayOfTimes.append(absTimeDifference)
             
-            if absTimeDifference < tempMinDurationDifference {
+            if absTimeDifference < tempMinDurationDifference
+            {
                 tempMinDurationDifference = timeDifference
                 tempMinCoordinateSteps = dest
                 //summationTimeNegOrPos = timeDifference
-
+                summationTimeNegOrPos = timeDifference
+        
+                
+                if summationTimeNegOrPos > 0 {
+                    if counterIndex != 0
+                    {
+                        let tempLat = originArray[counterIndex - 1].coordinateLat
+                        let tempLng = originArray[counterIndex - 1].coordinateLng
+                        tempCoordinateForBinarySearch = (tempLat, tempLng)
+                    }
+                    else
+                    {
+                        let tempLat = originArray[counterIndex - 1].coordinateLat
+                        let tempLng = originArray[counterIndex - 1].coordinateLng
+                        tempCoordinateForBinarySearch = (tempLat, tempLng)
+                    }// use start coordinate tho
+                    
+                    
+                }
+                
+                else
+                {
+                    if counterIndex != originArray.count
+                        {
+                            let tempLat = originArray[counterIndex + 1].coordinateLat
+                            let tempLng = originArray[counterIndex + 1].coordinateLng
+                            tempCoordinateForBinarySearch = (tempLat, tempLng)
+                            
+                        }
+                    else
+                        {
+                            tempCoordinateForBinarySearch = originArray[counterIndex].edgeCaseCoordinateEnd
+                            
+                        }
+                }
             }
+            
+            counterIndex = counterIndex + 1
         }
-        
-        
-        print(valueArrayOfTimes)
-        print(absValueArrayOfTimes)
-        
+
         let desiredCoordinate = (tempMinCoordinateSteps!.coordinateLat, tempMinCoordinateSteps!.coordinateLng)
         
-        return desiredCoordinate
+        print("desiredCoordinate: ", desiredCoordinate)
+        print("tempCoordinateForBinarySsearch: ", tempCoordinateForBinarySearch)
+        
+        return (desiredCoordinate, tempCoordinateForBinarySearch!)
     }
     
 
@@ -204,40 +247,8 @@ class GoogleMapsHelper {
                 let encodedPolyline = json["routes"][0]["overview_polyline"]["points"].stringValue
                 print("encodedPolyline: ", encodedPolyline)
                 let polylineHalfMap = GMSPath(fromEncodedPath: encodedPolyline)
-                
-                //callback(polylineHalfMap!)
-                
-                
-                
-                
-                /*
-                 
-                
-                let path: GMSPath = GMSPath(fromEncodedPath: route)!
-                routePolyline = GMSPolyline(path: path)
-                routePolyline.map = mapView
-                
-                
-                var bounds = GMSCoordinateBounds()
-                
-                for index in 1...path.count() {
-                    bounds = bounds.includingCoordinate(path.coordinateAtIndex(index))
-                }
-                
-                mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds))
-                
-                */
-                
-                
-                //callback(json["routes"][0]["overview_polyline"].stringValue)
-                
+           
                 let stepsJSON = json["routes"][0]["legs"][0]["steps"]
-
-                //print(json)
-                
-                //example for array
-//                let status = json["status"].stringValue
-//                print(status)
 
                 var arrayOfStepsFromOrigin: [Steps] = []
                 
@@ -257,7 +268,7 @@ class GoogleMapsHelper {
                 
                 var arrayOfStepsFromDestination: [Steps] = []
                 
-                for i in arrayOfStepsFromOrigin {
+                for i in arrayOfStepsFromOrigin.reverse() {
                         arrayOfStepsFromDestination.append(i)
                 }
                 
@@ -268,22 +279,33 @@ class GoogleMapsHelper {
 
                 
                 // the duration for the wakling array is now converted
-                print("duration till next coordinate CONVERTED")
                 // everytime you parse through the array, i turns into a copy.
                 
-                
+                //convert to walking speed, add summation time for both arrays
                 arrayOfStepsFromDestination = convertStepsArrayToWalkingSpeed(arrayOfStepsFromDestination)
-                arrayOfStepsFromDestination = addSummationTimeToArray(arrayOfStepsFromDestination.reverse())
-                print("addSumattionTimeToarray: dest ", arrayOfStepsFromDestination)
-                arrayOfStepsFromOrigin = addSummationTimeToArray(arrayOfStepsFromOrigin)
-                print("addSumattionTimetoArry: og", arrayOfStepsFromOrigin)
-                let desiredCoordinate = subtractBothSummationTimes(arrayOfStepsFromOrigin,destArray: arrayOfStepsFromDestination)
-                print(desiredCoordinate)
                 
-                callback((polylineHalfMap!), desiredCoordinate)
+                print("array= Destination, durations")
+                for i in arrayOfStepsFromDestination {
+                    print(i.durationTillNextCoordinate)
+                }
+                
+                print("\n array= Origin, durations")
+                for i in arrayOfStepsFromOrigin {
+                    print(i.durationTillNextCoordinate)
+                }
+                
+                arrayOfStepsFromDestination = addSummationTimeToArray(arrayOfStepsFromDestination)
+                arrayOfStepsFromOrigin = addSummationTimeToArray(arrayOfStepsFromOrigin)
+        
+                let desiredCoordinate = subtractBothSummationTimes(arrayOfStepsFromOrigin,destArray: arrayOfStepsFromDestination)
+                print(desiredCoordinate.0)
+                
+                callback((polylineHalfMap!), desiredCoordinate.0)
+                
+                
 
                 
-//                
+
 //                if summationTimeNegOrPos > 0 {
 //                    //origin = the coordinate
 //                }
@@ -344,7 +366,11 @@ class GoogleMapsHelper {
     }
     
 
+
+
+    static func directionsBinarySearch(origin: (Double,Double), destination: (Double,Double)) {
+        
+    }
+
+
 }
-
-
-
