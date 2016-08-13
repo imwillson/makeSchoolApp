@@ -55,7 +55,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
             dispatch_async(dispatch_get_main_queue(), {() -> Void in
                 let polyline: GMSPolyline = GMSPolyline(path: callback.0)
-                polyline.strokeColor = UIColor.redColor()
+                polyline.strokeColor = UIColor.blueColor()
                 polyline.strokeWidth = 5.0
                 polyline.map = self.halfMapView
                 
@@ -117,14 +117,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // example 40.7182932,-74.0044699
-        // 412 -  40.7189113,-74.003954
- 
+        //encoded polyline Test
+        // example 40.61403,-73.9935286 1914
+        // 1540 W 10th St, Brooklyn, NY 11204, USA
+        // 2020 71st St, Brooklyn, NY 11204, USA
         
-        GoogleMapsHelper.getEncodedPolylineTwoPoints((40.7182932, -74.0044699), endCoordinate: (40.7189113, -74.003954)) { encodedPolyline in
-                print(encodedPolyline)
-            
-            }
+//        GoogleMapsHelper.getEncodedPolylineTwoPoints((40.61403,-73.9935286), endCoordinate: (40.6127824,-73.9910261)) { encodedPolyline in
+//                print(encodedPolyline)
+//            
+//            }
+        
+        GoogleMapsHelper.directionsBinarySearch((40.61403,-73.99133990000001), destination: (40.6127713,-73.9888492))
         
         startLocationTextField!.delegate = self
         endLocationTextField!.delegate = self

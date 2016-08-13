@@ -66,38 +66,6 @@ class GoogleMapsHelper {
 
     
     
-
-    static func findTotalDistanceOfPath(path: GMSPath) -> Double {
-    
-        let numberOfCoords = path.count()
-    
-        var totalDistance = 0.0
-    
-        if numberOfCoords > 1 {
-        
-            var index = 0 as UInt
-        
-            while index < numberOfCoords - 1 {
-            
-                //1.1 cal the next distance
-
-                var currentCoord = path.coordinateAtIndex(index)
-
-                var nextCoord = path.coordinateAtIndex(index + 1)
-
-                var newDistance = GMSGeometryDistance(currentCoord, nextCoord)
-
-                totalDistance = totalDistance + newDistance
-
-                index = index + 1
-
-            }
-        
-        }
-        return totalDistance
-    
-    }
-    
    /*
     static func binarySearch(origin: (Double, Double), destination: (Double, Double)) {
         
@@ -338,7 +306,7 @@ class GoogleMapsHelper {
             
             var index = 0 as UInt
             
-            while index  < numberOfCoords{
+            while index  <=  numberOfCoords - 2 {
                 
                 //1.1 cal the next distance
                 
@@ -346,11 +314,15 @@ class GoogleMapsHelper {
                 
                 var nextCoord = path.coordinateAtIndex(index + 1)
                 
-                var newDistance = GMSGeometryDistance(currentCoord, nextCoord)
+                var newDistance = GMSGeometryDistance(currentCoord, nextCoord) //FOUND MY BUG !!!
                 
                 midDistance = midDistance + (newDistance)
                 
                 print(fabs(midDistance - halfDistance))
+                
+                
+                
+                GMSGeometryUtils.GMSGeometryInterpolate(from: 40.0, to: 70.0, fraction: 1/4)
                 
                 if fabs(midDistance - halfDistance) < Double(threadhold) { //Found the middle point in route
                     return nextCoord
@@ -363,6 +335,45 @@ class GoogleMapsHelper {
             
         }
         return nil //Return nil if we cannot find middle point in path for some reason
+    }
+    
+    static func findTotalDistanceOfPath(path: GMSPath) -> Double {
+        
+        let numberOfCoords = path.count()
+        
+        var totalDistance = 0.0
+        
+        if numberOfCoords > 1 {
+            
+            var index = 0 as UInt
+            
+            while index < numberOfCoords - 1 {
+                
+                //1.1 cal the next distance
+                
+                var currentCoord = path.coordinateAtIndex(index)
+                
+                var nextCoord = path.coordinateAtIndex(index + 1)
+                
+                var newDistance = GMSGeometryDistance(currentCoord, nextCoord)
+                
+                totalDistance = totalDistance + newDistance
+                
+                index = index + 1
+                
+            }
+            
+        }
+        return totalDistance
+        
+    }
+    
+    static func convertToLinkFormat(address: String) -> String {
+        let substringArray = address.componentsSeparatedByString(" ")
+        let backToString = substringArray.joinWithSeparator("+")
+        
+        return backToString
+    
     }
     
     static func getEncodedPolylineTwoPoints(startCoordinate: (Double, Double), endCoordinate: (Double, Double), encodedPolyline: String -> Void) {
@@ -402,8 +413,16 @@ class GoogleMapsHelper {
 
 
     static func directionsBinarySearch(origin: (Double,Double), destination: (Double,Double)) {
-        
+        getEncodedPolylineTwoPoints(origin, endCoordinate: destination) { encodedPolyline in
+                let pathForTwoPoints = GMSPath(fromEncodedPath: encodedPolyline)
+                let totalDistPoints = findTotalDistanceOfPath(pathForTwoPoints!)
+                let midpointCoordinate = findMiddlePointInPath(pathForTwoPoints!, totalDistance: totalDistPoints)
+            
+            print("this is what i need: ", midpointCoordinate)
+            
+            
+            
+        }
     }
-
 
 }
